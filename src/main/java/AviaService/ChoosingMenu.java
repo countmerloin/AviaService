@@ -1,4 +1,4 @@
-package AviaService.IO;
+package AviaService;
 
 public class ChoosingMenu {
     public MenuPoints parse(String input) {
