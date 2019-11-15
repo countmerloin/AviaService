@@ -98,16 +98,15 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
 
     public List<Flight> loadDBF() {
 
-        while (true) {
             try {FileInputStream fileIn =
                     new FileInputStream("src/main/java/AviaService/datas/FlightsTable.ser");
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 Flight f = (Flight) in.readObject();
                 flightsTable.add(f);
             } catch (ClassNotFoundException | IOException e) {
-                break;
+
             }
-        }
+
 
     return flightsTable;}
 
