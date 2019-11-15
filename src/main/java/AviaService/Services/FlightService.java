@@ -2,7 +2,6 @@ package AviaService.Services;
 
 import AviaService.DAO.DAO_Flight;
 import AviaService.Entities.Flight;
-import AviaService.Entities.FlightsTable;
 import AviaService.Flight_DB;
 
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FlightService {
-    DAO_Flight services = new Flight_DB();
+    private DAO_Flight services = new Flight_DB();
 
     public List<Flight> getAllFlights() {
         return services.getAllFlights();
@@ -28,7 +27,7 @@ public class FlightService {
         services.saveFlight(flight);
     }
 
-    public boolean deleteFlight() {
+    public List<Flight> deleteFlight() {
         return services.deleteFlight();
     }
 

@@ -57,21 +57,20 @@ public class Flight implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return getId().equals(flight.getId()) &&
-                Objects.equals(getDestination(), flight.getDestination()) &&
+        return Objects.equals(getDestination(), flight.getDestination()) &&
                 Objects.equals(getDate(), flight.getDate());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getId(), getDestination(), getDate());
+        int result = Objects.hash(getDestination(), getDate());
         result = 31 * result;
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("Flight ID: %s, from: Kiev, to: %s, on: %s", id, destination,
+        return String.format("Flight ID: %s| from: Kiev| to: %s| on: %s", id, destination,
                 date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 }

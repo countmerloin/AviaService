@@ -5,31 +5,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class FlightsTable implements Iterable<Flight>, Serializable {
-    private final List<String> cities = Arrays.asList("Baku",
-            "Minsk",
-            "Riga",
-            "Vilnius",
-            "Astana",
-            "Tbilisi",
-            "Warsaw",
-            "Prague",
-            "Vienna",
-            "Amsterdam",
-            "London",
-            "Saint-Petersburg",
-            "Madrid",
-            "Lisbon",
-            "Athens",
-            "Budapest",
-            "Belgrade",
-            "Stockholm",
-            "Oslo",
-            "Glasgow",
-            "Berlin",
-            "Kiev");
-
+public class FlightsTable implements Serializable {
     private List<Flight> flightsTable = new ArrayList<>();
+    Cities c = new Cities();
 
     public FlightsTable() {
         if (isExisted()) {
@@ -43,12 +21,10 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
         return false;
     }
 
-
     public List<Flight> createFlights() {
+        List<String> cities = c.getCityName();
         for (int i = 0; i < 1000; i++) {
-
             String city = cities.get((int) (Math.random() * 21));
-
             LocalDateTime flightDate = LocalDateTime.now().plusSeconds((long) (Math.random() * 2592000))
                     .truncatedTo(ChronoUnit.HOURS);
 
@@ -69,21 +45,13 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
         return flightsTable;
     }
 
-
-    @Override
-    public Iterator<Flight> iterator() {
-        return flightsTable.iterator();
-    }
-
     public void createDBF() {
         createFlights();
         try {
             FileOutputStream fileOut =
                     new FileOutputStream("src/test/java/AviaService/FlightsTable.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-
             out.writeObject(flightsTable);
-
         } catch (IOException e) {
             System.out.println("smth went wrong during flights file filling");
         }
@@ -95,9 +63,7 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
             FileInputStream fileIn =
                     new FileInputStream("src/test/java/AviaService/FlightsTable.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-
             flightsTable = (List<Flight>) in.readObject();
-
         } catch (ClassNotFoundException | IOException e) {
         }
         return flightsTable;

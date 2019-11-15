@@ -2,13 +2,12 @@ package AviaService.Controllers;
 
 import AviaService.Entities.Flight;
 import AviaService.Services.FlightService;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class FlightController {
 
-    FlightService fs = new FlightService();
+    public FlightService fs = new FlightService();
 
     public List<Flight> getAllFlights() {
         return fs.getAllFlights();
@@ -26,7 +25,7 @@ public class FlightController {
         fs.saveFlight(flight);
     }
 
-    public boolean deleteFlight() {
+    public List<Flight> deleteFlight() {
         return fs.deleteFlight();
     }
 
