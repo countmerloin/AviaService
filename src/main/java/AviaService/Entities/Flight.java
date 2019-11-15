@@ -3,6 +3,7 @@ package AviaService.Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Flight implements Serializable {
@@ -70,7 +71,8 @@ public class Flight implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Flight ID: %s, from: Kiev, to: %s, on: %s", id, destination, date.toString());
+        return String.format("Flight ID: %s, from: Kiev, to: %s, on: %s", id, destination,
+                date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 }
 

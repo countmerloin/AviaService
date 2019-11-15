@@ -36,7 +36,6 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
             loadDBF();
         } else {
             createDBF();
-
         }
     }
 
@@ -48,11 +47,10 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
     public List<Flight> createFlights() {
         for (int i = 0; i < 1000; i++) {
 
-            int index = (int) (Math.random() * 21);
-            String city = cities.get(index);
+            String city = cities.get((int) (Math.random() * 21));
 
-            long after = (long) (Math.random() * 2592000);
-            LocalDateTime flightDate = LocalDateTime.now().plusSeconds(after).truncatedTo(ChronoUnit.HOURS);
+            LocalDateTime flightDate = LocalDateTime.now().plusSeconds((long) (Math.random() * 2592000))
+                    .truncatedTo(ChronoUnit.HOURS);
 
             char[] partOfId = new char[3];
             city.getChars(0, 3, partOfId, 0);
@@ -79,36 +77,30 @@ public class FlightsTable implements Iterable<Flight>, Serializable {
 
     public void createDBF() {
         createFlights();
-        try {FileOutputStream fileOut =
-                new FileOutputStream("src/main/java/AviaService/datas/FlightsTable.ser");
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("src/test/java/AviaService/FlightsTable.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
-            flightsTable.forEach(flight -> {
-                try {
-                    out.writeObject(flight);
+            out.writeObject(flightsTable);
 
-                } catch (IOException e) {
-                    System.out.println("smth went wrong during flights file filling");
-                }
-            });
         } catch (IOException e) {
-            System.out.println("smth went wrong during flights file creation");
+            System.out.println("smth went wrong during flights file filling");
         }
     }
 
     public List<Flight> loadDBF() {
+        List<Flight> flightsTable = new ArrayList<>();
+        try {
+            FileInputStream fileIn =
+                    new FileInputStream("src/test/java/AviaService/FlightsTable.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
 
-            try {FileInputStream fileIn =
-                    new FileInputStream("src/main/java/AviaService/datas/FlightsTable.ser");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                Flight f = (Flight) in.readObject();
-                flightsTable.add(f);
-            } catch (ClassNotFoundException | IOException e) {
+            flightsTable = (List<Flight>) in.readObject();
 
-            }
-
-
-    return flightsTable;}
-
+        } catch (ClassNotFoundException | IOException e) {
+        }
+        return flightsTable;
+    }
 }
 
