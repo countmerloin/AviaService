@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AviaService" target="8" />
+      <module name="AviaService" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>

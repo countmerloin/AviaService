@@ -4,7 +4,7 @@ public class Menu {
     public String show() {
         StringBuilder menu = new StringBuilder();
         menu.append("|*********************|\n");
-        menu.append("|      AviaBooking    |\n");
+        menu.append("|      AviaService    |\n");
         menu.append("|*********************|\n");
         menu.append("| 1. Online Timetable |\n");
         menu.append("| 2. Flight Info      |\n");
