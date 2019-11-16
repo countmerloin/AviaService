@@ -16,14 +16,14 @@ public class Flight implements Serializable {
         this.id = id;
         this.destination = destination;
         this.date = date;
-        this.passengers =passengers;
+        this.passengers = passengers;
     }
 
     public Flight(String destination, LocalDateTime date, int passengers) {
 
         this.destination = destination;
         this.date = date;
-        this.passengers =passengers;
+        this.passengers = passengers;
     }
 
     public Flight(String id) {
@@ -70,7 +70,7 @@ public class Flight implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Flight ID: %s| from: Kiev| to: %s| on: %s", id, destination,
+        return String.format("Flight ID: %s | from: Kiev | to: %s | on: %s", id, destination,
                 date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 }
