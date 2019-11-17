@@ -2,6 +2,7 @@ package AviaService.Controllers;
 
 import AviaService.Entities.Flight;
 import AviaService.Services.FlightService;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class FlightController {
         return fs.deleteFlight();
     }
 
-    public List<Flight> getFlights24() {
-        return fs.getFlights24();
+    public void getFlights24() {
+        fs.getFlights24();
     }
 }

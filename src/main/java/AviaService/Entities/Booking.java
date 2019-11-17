@@ -21,9 +21,9 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public Booking(String name, String surname) {
-        this.passenger = name + surname;
-    }
+//    public Booking(String name, String surname) {
+//        this.passenger = name + surname;
+//    }
 
     @Override
     public String toString() {

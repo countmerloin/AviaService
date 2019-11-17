@@ -6,8 +6,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class FlightsTable implements Serializable {
-    private List<Flight> flightsTable = new ArrayList<>();
     Cities c = new Cities();
+    private List<Flight> flightsTable = new ArrayList<>();
 
     public FlightsTable() {
         if (isExisted()) {
@@ -18,7 +18,8 @@ public class FlightsTable implements Serializable {
     }
 
     public boolean isExisted() {
-        return false;
+        File file = new File("src/test/java/AviaService/FlightsTable.ser");
+        return file.exists();
     }
 
     public List<Flight> createFlights() {
