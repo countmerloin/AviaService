@@ -9,9 +9,9 @@ public class BookingService  {
 
     private Booking_DB booking_db = new Booking_DB();
 
-    public void myBookings(String username) {
-        booking_db.myBookings(username);
-    }
+    public List<Booking> getAllBookings() { return booking_db.getAllBookings(); }
+
+    public void myBookings(String name, String surname) { booking_db.myBookings(name, surname); }
 
     public List<Booking> addBooking() {
         return booking_db.addBooking();
@@ -20,4 +20,6 @@ public class BookingService  {
     public List<Booking> cancelBooking(String bookId) {
         return booking_db.cancelBooking(bookId);
     }
+
+    public Booking findById(String bookId) { return booking_db.findById(bookId); }
 }

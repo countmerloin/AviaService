@@ -81,15 +81,19 @@ public class Flight_DB implements DAO_Flight {
             Flight f = new Flight(id, city, flightDate);
             dbf.add(f);
         }
-        dbf.sort(new Comparator<Flight>() {
-
-            @Override
-            public int compare(Flight flight, Flight f1) {
-                return (flight.getDate().isAfter(f1.getDate()) ? -1 :
-                        (flight.getDate().equals(f1.getDate()) ? 0 : 1));
-            }
-        });
+        dbf.sort((flight, f1) -> (flight.getDate().isAfter(f1.getDate()) ? -1 :
+                (flight.getDate().equals(f1.getDate()) ? 0 : 1)));
         return dbf;
+    }
+
+    @Override
+    public void getFlights24() {
+        LocalDateTime in24hour = LocalDateTime.now().plusHours(24);
+        for (Flight f : getAllFlights()) {
+            if (f.getDate().isBefore(in24hour) && f.getDate().isAfter(LocalDateTime.now())) {
+                System.out.println(f);
+            }
+        }
     }
 }
 

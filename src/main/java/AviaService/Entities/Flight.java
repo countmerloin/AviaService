@@ -43,13 +43,11 @@ public class Flight implements Serializable {
         return destination;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
+    public LocalDateTime getDate() { return date; }
 
-    public int getPassengers() {
-        return passengers;
-    }
+    public int getPassengers() { return passengers; }
+
+    public void setPassengers(int passengers) { this.passengers = passengers; }
 
 
     @Override
@@ -70,8 +68,8 @@ public class Flight implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Flight ID: %s | from: Kiev | to: %s | on: %s", id, destination,
-                date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        return String.format("Flight ID: %s | from: Kiev | to: %s | on: %s | available tickets: %d", id, destination,
+                date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), passengers);
     }
 }
 

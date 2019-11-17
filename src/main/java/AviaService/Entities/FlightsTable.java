@@ -17,8 +17,9 @@ public class FlightsTable implements Serializable {
         }
     }
 
-    public boolean isExisted() {
-        File file = new File("src/test/java/AviaService/FlightsTable.ser");
+    public boolean isExisted()
+    {
+        File file = new File("src/main/java/AviaService/Datas/FlightsTable.ser");
         return file.exists();
     }
 
@@ -31,18 +32,14 @@ public class FlightsTable implements Serializable {
 
             char[] partOfId = new char[3];
             city.getChars(0, 3, partOfId, 0);
-            String id = "K" + partOfId[0] + partOfId[1] + partOfId[2] + flightDate.getHour();
+            int random = (int)(Math.random()*99);
+            String id = "K" + partOfId[0] + partOfId[1] + partOfId[2] + flightDate.getDayOfMonth() + random;
 
             Flight f = new Flight(id, city, flightDate);
             flightsTable.add(f);
         }
-        flightsTable.sort(new Comparator<Flight>() {
-            @Override
-            public int compare(Flight flight, Flight f1) {
-                return (flight.getDate().isAfter(f1.getDate()) ? -1 :
-                        (flight.getDate().equals(f1.getDate()) ? 0 : 1));
-            }
-        });
+        flightsTable.sort((flight, f1) -> (flight.getDate().isBefore(f1.getDate()) ? -1 :
+                (flight.getDate().equals(f1.getDate()) ? 0 : 1)));
         return flightsTable;
     }
 
@@ -50,9 +47,20 @@ public class FlightsTable implements Serializable {
         createFlights();
         try {
             FileOutputStream fileOut =
-                    new FileOutputStream("src/test/java/AviaService/FlightsTable.ser");
+                    new FileOutputStream("src/main/java/AviaService/Datas/FlightsTable.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(flightsTable);
+        } catch (IOException e) {
+            System.out.println("smth went wrong during flights file filling");
+        }
+    }
+
+    public void updateDBF(List<Flight> flights) {
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("src/main/java/AviaService/Datas/FlightsTable.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(flights);
         } catch (IOException e) {
             System.out.println("smth went wrong during flights file filling");
         }
@@ -62,9 +70,9 @@ public class FlightsTable implements Serializable {
         List<Flight> flightsTable = new ArrayList<>();
         try {
             FileInputStream fileIn =
-                    new FileInputStream("src/test/java/AviaService/FlightsTable.ser");
+                    new FileInputStream("src/main/java/AviaService/Datas/FlightsTable.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            flightsTable = (List<Flight>) in.readObject();
+            flightsTable = (ArrayList<Flight>) in.readObject();
         } catch (ClassNotFoundException | IOException e) {
         }
         return flightsTable;

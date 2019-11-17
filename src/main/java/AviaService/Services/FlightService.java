@@ -1,11 +1,10 @@
 package AviaService.Services;
 
-import AviaService.DAO.DAO_Flight;
+
 import AviaService.Entities.Flight;
 import AviaService.Flight_DB;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 public class FlightService {
@@ -35,13 +34,7 @@ public class FlightService {
 
 
     public void getFlights24() {
-        LocalDateTime in24hour = LocalDateTime.now().plusHours(24);
-        Flight flight = new Flight(in24hour);
-        for (Flight f : getAllFlights()) {
-            if (f.getDate().isBefore(in24hour) && f.getDate().isAfter(LocalDateTime.now())) {
-                System.out.println(f);
-            }
-        }
-    }
+        services.getFlights24();}
+
 
 }

@@ -11,4 +11,6 @@ public interface DAO_Flight  <T>{
     List<Flight> getFlightByInfo(String destination, LocalDateTime date, int passenger);
     void saveFlight(Flight flight);
     List<Flight> deleteFlight();
+
+    void getFlights24();
 }
