@@ -11,11 +11,6 @@ public class BookingTable implements Serializable {
     private Flight_DB book_db = new Flight_DB();
 
 
-    public BookingTable() {
-        if (isExist()) loadBookDB();
-        else creatBookDB();
-    }
-
     public Booking createBook() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter flight ID");
@@ -29,15 +24,20 @@ public class BookingTable implements Serializable {
         ArrayList<String> passengers = new ArrayList<>();
 
         for (int i = 0; i < ticketCount; i++) {
-            System.out.println("Please enter name and surname #:" + (i + 1));
+            System.out.println("Please enter name and surname #:" + (i+1));
             String passenger = scanner.nextLine();
             passengers.add(passenger);
         }
 
         String idBook = flight.getId().charAt(2) + String.valueOf(flight.getId().charAt(4)) +
-                passengers.get(0).charAt(4) + passengers.get(0).charAt(3);
+                            passengers.get(0).charAt(4) + passengers.get(0).charAt(3);
 
         return new Booking(idBook, flight, passengers);
+    }
+
+    public BookingTable() {
+        if (isExist()) loadBookDB();
+        else creatBookDB();
     }
 
     private boolean isExist() {
@@ -57,7 +57,7 @@ public class BookingTable implements Serializable {
     }
 
 
-    public List<Booking> loadBookDB() {
+   public List<Booking> loadBookDB() {
         List<Booking> bookTable = new ArrayList<>();
         try {
             FileInputStream fileIn =

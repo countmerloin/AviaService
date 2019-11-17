@@ -9,7 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FlightService {
-    private DAO_Flight services = new Flight_DB();
+    //DAO_Flight changed to Flight_DB
+
+    private Flight_DB services = new Flight_DB();
 
     public List<Flight> getAllFlights() {
         return services.getAllFlights();
