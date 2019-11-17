@@ -1,6 +1,6 @@
 //package AviaService;
 //
-//import lesson11.step.controller.BookingController;
+//import Controllers.BookingController;
 //import lesson11.step.controller.MainController;
 //import lesson11.step.controller.TimetableController;
 //import lesson11.step.io.Command;
