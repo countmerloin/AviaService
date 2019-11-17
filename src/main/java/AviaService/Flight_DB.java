@@ -16,6 +16,7 @@ public class Flight_DB implements DAO_Flight {
     FlightsTable ft = new FlightsTable();
     private List<Flight> dbf = ft.loadDBF();
 
+
     @Override
     public List<Flight> getAllFlights() {
         return dbf;

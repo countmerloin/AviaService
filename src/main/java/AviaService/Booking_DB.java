@@ -23,7 +23,9 @@ public class Booking_DB implements DAO_Booking {
         ) {
             for (String s : b.getPassengers()
             ) {
+                s = s.trim();
                 if (s.equalsIgnoreCase(booking.getPassenger())) System.out.println(b);
+                else System.out.println("Bookings for this person not found.");
             }
         }
     }

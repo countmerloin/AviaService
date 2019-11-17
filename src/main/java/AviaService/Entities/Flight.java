@@ -58,12 +58,12 @@ public class Flight implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
         return Objects.equals(getDestination(), flight.getDestination()) &&
-                Objects.equals(getDate(), flight.getDate());
+                Objects.equals(getDate().getDayOfYear(), flight.getDate().getDayOfYear());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getDestination(), getDate());
+        int result = Objects.hash(getDestination(), getDate().getDayOfYear());
         result = 31 * result;
         return result;
     }

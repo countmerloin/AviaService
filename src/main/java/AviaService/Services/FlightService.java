@@ -34,16 +34,14 @@ public class FlightService {
     }
 
 
-    public List<Flight> getFlights24() {
+    public void getFlights24() {
         LocalDateTime in24hour = LocalDateTime.now().plusHours(24);
         Flight flight = new Flight(in24hour);
-        List<Flight> hour24 = new LinkedList<>();
-        for (Flight f: getAllFlights()) {
+        for (Flight f : getAllFlights()) {
             if (f.getDate().isBefore(in24hour) && f.getDate().isAfter(LocalDateTime.now())) {
-                hour24.add(f);
+                System.out.println(f);
             }
         }
-        return hour24;
     }
 
 }
