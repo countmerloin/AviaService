@@ -4,11 +4,13 @@ package AviaService;
 import AviaService.Controllers.BookingController;
 import AviaService.Controllers.FlightController;
 import AviaService.Controllers.MenuController;
+import AviaService.Entities.Booking;
 import AviaService.Entities.BookingTable;
 import AviaService.Entities.Flight;
 import AviaService.Entities.FlightsTable;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -53,53 +55,86 @@ public class Core {
             switch (user_input) {
                 case ONLINE_BOARD:
                     flightController.getFlights24();
+                    menuController.help();
                     break;
                 case FLIGHT_INFO: {
                     System.out.println("Enter flight ID: ");
                     String flightID = console.readLn();
                     System.out.println(flightController.getFlightById(flightID));
+                    menuController.help();
                 }
                 break;
                 case BOOKING: {
                     System.out.println("Please, enter destination:");
                     String dest = console.readLn();
-                    System.out.println("Please, enter date:");
-                    LocalDateTime date = LocalDateTime.now();  //Edit this line
+                    System.out.println("Please, enter date in the following format yyyy-MM-dd:");
+                    LocalDate dateInput = LocalDate.parse(console.readLn());
+                    LocalDateTime date = dateInput.atStartOfDay();
+
                     System.out.println("Please, enter passenger count:");
                     int passenger = Integer.parseInt(console.readLn());
 
                     List<Flight> flights = flightController.getFlightByInfo(dest, date, passenger);
-
                     for (Flight f : flights) {
                         System.out.println(f);
                     }
+                    System.out.println("Choose action: 1. Make a book");
+                    System.out.println("               2. Return to menu");
+                    int choose = Integer.parseInt(console.readLn());
+                    boolean flag = true;
+                    while (flag) {
+                        switch (choose) {
+                            case 1: {
+                                bookingController.addBooking();
+                                int index = bookingController.getAllBookings().size() - 1;
 
-                    bookingController.addBooking();
-                    //Update flight list
+                                Flight flight = bookingController.getAllBookings().get(index).getFlight();
+                                int ticket = bookingController.getAllBookings().get(index).getPassengers().size();
+                                flight.setPassengers(flight.getPassengers() - ticket);
+                                flightController.saveFlight(flight);
+                                System.out.println("Booking is saved!");
+                                menuController.help();
+                                flag=false;
+                            }
+                            break;
+                            default:
+                                menuController.help();
+                                flag=false;
+                        }
+                    }
                 }
                 break;
 
                 case CANCEL_BOOKING: {
                     System.out.println("Please enter Booking ID:");
                     String bookId = console.readLn();
+                    Booking book = bookingController.findById(bookId);
+                    int tickets = book.getPassengers().size();
+                    int index = bookingController.getAllBookings().indexOf(book);
+                    Flight flight = bookingController.getAllBookings().get(index).getFlight();
+                    flight.setPassengers(flight.getPassengers() + tickets);
+                    flightController.saveFlight(flight);
                     bookingController.cancelBooking(bookId);
-                    //Update Flight list
+                    menuController.help();
                 }
                 break;
+
                 case MY_BOOKINGS: {
                     System.out.println("Enter your name:");
                     String name = console.readLn();
                     System.out.println("Enter your surname:");
                     String surname = console.readLn();
 
-                    String fullName = name + surname;
-                    bookingController.myBookings(fullName);
+                    bookingController.myBookings(name, surname);
+                    menuController.help();
                 }
                 break;
-                case EXIT:
-                    //update databases
+                case EXIT: {
+                    flightsTable.updateDBF(flightController.getAllFlights());
+                    bookingTable.updateBookDB(bookingController.getAllBookings());
                     cont = false;
-                    break;
+                }
+                break;
                 case REPEAT:
                 default:
                     console.printLn(menuController.help());

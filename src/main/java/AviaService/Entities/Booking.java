@@ -20,15 +20,14 @@ public class Booking implements Serializable {
     public Booking(String id) {
         this.id = id;
     }
-
-//    public Booking(String name, String surname) {
-//        this.passenger = name + surname;
-//    }
+    public Booking(String name, String surname) {
+        this.passenger = name+surname;
+    }
 
     @Override
     public String toString() {
-        return String.format("Booking ID: %s| Passengers: %s | Flight info: %s",
-                this.id, this.passengers, this.flight);
+        return String.format("Booking ID: %s| Passengers: %s | Destination: %s | Date: %s |",
+                this.id, this.passengers, this.flight.getDestination(), this.flight.getDate());
     }
 
     public String getPassenger() {
