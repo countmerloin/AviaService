@@ -81,13 +81,15 @@ public class Flight_DB implements DAO_Flight {
             dbf.add(f);
         }
         dbf.sort(new Comparator<Flight>() {
+
             @Override
             public int compare(Flight flight, Flight f1) {
                 return (flight.getDate().isAfter(f1.getDate()) ? -1 :
                         (flight.getDate().equals(f1.getDate()) ? 0 : 1));
             }
         });
-    return dbf;}
+        return dbf;
+    }
 }
 
 

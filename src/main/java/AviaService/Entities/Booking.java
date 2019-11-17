@@ -1,6 +1,7 @@
 package AviaService.Entities;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Booking implements Serializable {
@@ -16,12 +17,22 @@ public class Booking implements Serializable {
         this.passengers = passengers;
     }
 
-    public Booking (String id) {
+    public Booking(String id) {
         this.id = id;
     }
 
-    public Booking (String name, String surname) {
+    public Booking(String name, String surname) {
         this.passenger = name + surname;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Booking ID: %s| Passengers: %s | Flight info: %s",
+                this.id, this.passengers, this.flight);
+    }
+
+    public String getPassenger() {
+        return passenger;
     }
 
     public ArrayList<String> getPassengers() {
@@ -36,7 +47,4 @@ public class Booking implements Serializable {
         return id;
     }
 
-    public String getPassenger() {
-        return passenger;
-    }
 }
