@@ -6,12 +6,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class FlightsTable implements Serializable {
+
     Cities c = new Cities();
     private List<Flight> flightsTable = new ArrayList<>();
 
     public FlightsTable() {
         if (isExisted()) {
             loadDBF();
+            deleteFlights();
         } else {
             createDBF();
         }
@@ -77,5 +79,33 @@ public class FlightsTable implements Serializable {
         }
         return flightsTable;
     }
+
+    public List<Flight> deleteFlights() {
+        List<Flight> dbf = new ArrayList<>();
+        int i = 0;
+        for (Flight f : loadDBF()) {
+            if (f.getDate().isBefore(LocalDateTime.now())) {
+                dbf.remove(f);
+                i++;
+            }
+        }
+        List<String> cities = c.getCityName();
+        for (int j = 0; j < i; j++) {
+            String city = cities.get((int) (Math.random() * 21));
+            LocalDateTime flightDate = LocalDateTime.now().plusSeconds((long) (Math.random() * 2592000))
+                    .truncatedTo(ChronoUnit.HOURS);
+
+            char[] partOfId = new char[3];
+            city.getChars(0, 3, partOfId, 0);
+            String id = "K" + partOfId[0] + partOfId[1] + partOfId[2] + flightDate.getHour();
+
+            Flight f = new Flight(id, city, flightDate);
+            dbf.add(f);
+        }
+        dbf.sort((flight, f1) -> (flight.getDate().isBefore(f1.getDate()) ? -1 :
+                (flight.getDate().equals(f1.getDate()) ? 0 : 1)));
+        return dbf;
+    }
+
 }
 

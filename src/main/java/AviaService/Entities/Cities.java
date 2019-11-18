@@ -26,7 +26,5 @@ public class Cities {
             "Glasgow",
             "Berlin",
             "Kiev");
-    public List<String> getCityName(){
-
-    return cities;}
+    List<String> getCityName(){ return cities;}
 }
