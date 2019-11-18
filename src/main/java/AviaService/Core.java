@@ -1,18 +1,16 @@
 package AviaService;
 
-
 import AviaService.Controllers.BookingController;
 import AviaService.Controllers.FlightController;
 import AviaService.Controllers.MenuController;
 import AviaService.Entities.*;
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 class Core {
-Cities cities = new Cities();
+
     private final Console console;
     private final Menu menu;
     private final FlightsTable flightsTable;
@@ -42,7 +40,6 @@ Cities cities = new Cities();
             bookingTable.loadBookDB();
         } else bookingTable.creatBookDB();
 
-
         boolean cont = true;
         console.printLn(menu.show());
         while (cont) {
@@ -64,6 +61,7 @@ Cities cities = new Cities();
                     menuController.help();
                 }
                 break;
+
                 case BOOKING: {
                     console.printLn("Please, enter destination (capital of European country):");
                     String dest = console.readLn();
@@ -80,6 +78,7 @@ Cities cities = new Cities();
                         System.out.println(f);
                     }
                     if (flightController.getFlightByInfo(dest, date, passenger).size() == 0) {
+                        System.out.println("Flight not found. Please, search again.");
                         console.printLn(menu.show());
                         menuController.help();
                     } else {
@@ -119,7 +118,17 @@ Cities cities = new Cities();
                 case CANCEL_BOOKING: {
                     console.printLn("Please enter Booking ID:");
                     String bookId = console.readLn();
-                    Booking book = bookingController.findById(bookId);
+                    Optional<Booking> optBook = Optional.ofNullable(bookingController.findById(bookId));
+                    Booking book;
+                    if (optBook.isPresent()){
+                        book = optBook.get();}
+                    else {
+                        System.out.println("Booking not found!");
+                        console.printLn("");
+                        console.printLn(menu.show());
+                        menuController.help();
+                        break;
+                    }
                     int tickets = book.getPassengers().size();
                     int index = bookingController.getAllBookings().indexOf(book);
                     Flight flight = bookingController.getAllBookings().get(index).getFlight();
@@ -144,12 +153,14 @@ Cities cities = new Cities();
                     menuController.help();
                 }
                 break;
+
                 case EXIT: {
                     flightsTable.updateDBF(flightController.getAllFlights());
                     bookingTable.updateBookDB(bookingController.getAllBookings());
                     cont = false;
                 }
                 break;
+
                 case REPEAT:
                 default:
                     console.printLn("");

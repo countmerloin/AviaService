@@ -1,6 +1,5 @@
 package AviaService.Entities;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,35 +19,24 @@ public class Flight implements Serializable {
     }
 
     public Flight(String destination, LocalDateTime date, int passengers) {
-
         this.destination = destination;
         this.date = date;
         this.passengers = passengers;
     }
 
-    public Flight(String id) {
-        this.id = id;
-    }
+    public Flight(String id) { this.id = id; }
 
-    public Flight(LocalDateTime date) {
-        this.date = date;
-    }
+    public Flight(LocalDateTime date) { this.date = date; }
 
+    public String getId() { return id; }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
+    public String getDestination() { return destination; }
 
     public LocalDateTime getDate() { return date; }
 
     public int getPassengers() { return passengers; }
 
     public void setPassengers(int passengers) { this.passengers = passengers; }
-
 
     @Override
     public boolean equals(Object o) {

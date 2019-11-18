@@ -28,13 +28,6 @@ public class FlightService {
         services.saveFlight(flight);
     }
 
-    public List<Flight> deleteFlight() {
-        return services.deleteFlight();
-    }
-
-
     public void getFlights24() {
         services.getFlights24();}
-
-
 }

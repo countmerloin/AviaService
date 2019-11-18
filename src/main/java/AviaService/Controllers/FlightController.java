@@ -10,27 +10,14 @@ public class FlightController {
 
     public FlightService fs = new FlightService();
 
-    public List<Flight> getAllFlights() {
-        return fs.getAllFlights();
-    }
+    public List<Flight> getAllFlights() { return fs.getAllFlights(); }
 
-    public Flight getFlightById(String id) {
-        return fs.getFlightById(id);
-    }
+    public Flight getFlightById(String id) { return fs.getFlightById(id); }
 
     public List<Flight> getFlightByInfo(String destination, LocalDateTime date, int passenger) {
-        return fs.getFlightByInfo(destination, date, passenger);
-    }
+        return fs.getFlightByInfo(destination, date, passenger); }
 
-    public void saveFlight(Flight flight) {
-        fs.saveFlight(flight);
-    }
+    public void saveFlight(Flight flight) { fs.saveFlight(flight); }
 
-    public List<Flight> deleteFlight() {
-        return fs.deleteFlight();
-    }
-
-    public void getFlights24() {
-        fs.getFlights24();
-    }
+    public void getFlights24() { fs.getFlights24(); }
 }

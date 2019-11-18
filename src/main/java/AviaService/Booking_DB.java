@@ -3,18 +3,13 @@ package AviaService;
 import AviaService.DAO.DAO_Booking;
 import AviaService.Entities.Booking;
 import AviaService.Entities.BookingTable;
-
 import java.util.List;
-import java.util.Optional;
 
 public class Booking_DB implements DAO_Booking {
     private BookingTable bt = new BookingTable();
     private List<Booking> bookDB = bt.loadBookDB();
 
-
-    public List<Booking> getAllBookings() {
-        return bookDB;
-    }
+    public List<Booking> getAllBookings() { return bookDB; }
 
     @Override
     public void myBookings(String name, String surname) {
@@ -31,9 +26,10 @@ public class Booking_DB implements DAO_Booking {
                     i++;
                 }
             }
-            if (i == 0) {
-                System.out.println("Bookings for this person not found.");
-            }
+
+        }
+        if (i == 0) {
+            System.out.println("Bookings for this person not found.");
         }
     }
 
@@ -54,7 +50,6 @@ public class Booking_DB implements DAO_Booking {
         return x;
     }
 
-
     @Override
     public List<Booking> cancelBooking(String bookId) {
         for (int i = 0; i < bookDB.size(); i++) {
@@ -62,8 +57,6 @@ public class Booking_DB implements DAO_Booking {
             if (b.getId().equalsIgnoreCase(bookId)) {
                 bookDB.remove(b);
                 System.out.println("Your booking has been cancelled!");
-            } else {
-                System.out.println("Booking not found.");
             }
         }
         return bookDB;

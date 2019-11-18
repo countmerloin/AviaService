@@ -10,7 +10,6 @@ public class BookingTable implements Serializable {
     private List<Booking> book_db = new ArrayList<>();
     private Flight_DB flight_db = new Flight_DB();
 
-
     public BookingTable() {
         if (isExist()) loadBookDB();
         else creatBookDB();
@@ -84,5 +83,4 @@ public class BookingTable implements Serializable {
         }
         return bookTable;
     }
-
 }
