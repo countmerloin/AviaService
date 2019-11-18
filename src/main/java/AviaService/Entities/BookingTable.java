@@ -22,6 +22,8 @@ public class BookingTable implements Serializable {
         String idFlight = scanner.nextLine();
         Flight flight = flight_db.getFlightById(idFlight);
 
+
+
         System.out.println("Enter ticket count:");
         int ticketCount = scanner.nextInt();
         scanner.nextLine();

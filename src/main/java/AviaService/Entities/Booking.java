@@ -2,6 +2,7 @@ package AviaService.Entities;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Booking implements Serializable {
@@ -27,7 +28,8 @@ public class Booking implements Serializable {
     @Override
     public String toString() {
         return String.format("Booking ID: %s| Passengers: %s | Destination: %s | Date: %s |",
-                this.id, this.passengers, this.flight.getDestination(), this.flight.getDate());
+                this.id, this.passengers, this.flight.getDestination(),
+                this.flight.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
     public String getPassenger() {
