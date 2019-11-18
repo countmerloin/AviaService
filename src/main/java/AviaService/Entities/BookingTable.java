@@ -26,7 +26,7 @@ public class BookingTable implements Serializable {
         System.out.println("Enter ticket count:");
         int ticketCount = scanner.nextInt();
         scanner.nextLine();
-        if (ticketCount > flight.getPassengers()) {
+        if (ticketCount > flight.getPassengerCount()) {
             System.out.println("Please enter valid ticket number:");
             ticketCount = scanner.nextInt();
             scanner.nextLine();

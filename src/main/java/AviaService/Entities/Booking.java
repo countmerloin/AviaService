@@ -12,7 +12,7 @@ public class Booking implements Serializable {
     private Flight flight;
     private String id;
 
-    public Booking(String id, Flight flight, ArrayList<String> passengers) {
+    Booking(String id, Flight flight, ArrayList<String> passengers) {
         this.id = id;
         this.flight = flight;
         this.passengers = passengers;

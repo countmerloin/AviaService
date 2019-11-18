@@ -9,19 +9,19 @@ public class Flight implements Serializable {
     private String id;
     private String destination;
     private LocalDateTime date;
-    private int passengers = 5;
+    private int passengerCount = 5;
 
     public Flight(String id, String destination, LocalDateTime date) {
         this.id = id;
         this.destination = destination;
         this.date = date;
-        this.passengers = passengers;
+        this.passengerCount = passengerCount;
     }
 
-    public Flight(String destination, LocalDateTime date, int passengers) {
+    public Flight(String destination, LocalDateTime date, int passengerCount) {
         this.destination = destination;
         this.date = date;
-        this.passengers = passengers;
+        this.passengerCount = passengerCount;
     }
 
     public Flight(String id) { this.id = id; }
@@ -30,13 +30,13 @@ public class Flight implements Serializable {
 
     public String getId() { return id; }
 
-    public String getDestination() { return destination; }
+    String getDestination() { return destination; }
 
     public LocalDateTime getDate() { return date; }
 
-    public int getPassengers() { return passengers; }
+    public int getPassengerCount() { return passengerCount; }
 
-    public void setPassengers(int passengers) { this.passengers = passengers; }
+    public void setPassengerCount(int passengerCount) { this.passengerCount = passengerCount; }
 
     @Override
     public boolean equals(Object o) {
@@ -57,7 +57,7 @@ public class Flight implements Serializable {
     @Override
     public String toString() {
         return String.format("Flight ID: %s | from: Kiev | to: %s | on: %s | available tickets: %d", id, destination,
-                date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), passengers);
+                date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), passengerCount);
     }
 }
 

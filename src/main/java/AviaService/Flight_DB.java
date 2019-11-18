@@ -35,7 +35,7 @@ public class Flight_DB implements DAO_Flight {
         List<Flight> searchRes = new LinkedList<>();
         int i = 0;
         for (Flight f : dbf) {
-            if (search.hashCode() == f.hashCode() && search.equals(f) && passenger <= f.getPassengers()) {
+            if (search.hashCode() == f.hashCode() && search.equals(f) && passenger <= f.getPassengerCount()) {
                 searchRes.add(f);
                 i++;
             }

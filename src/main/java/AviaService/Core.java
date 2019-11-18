@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 class Core {
-
     private final Console console;
     private final Menu menu;
     private final FlightsTable flightsTable;
@@ -94,7 +93,7 @@ class Core {
 
                                     Flight flight = bookingController.getAllBookings().get(index).getFlight();
                                     int ticket = bookingController.getAllBookings().get(index).getPassengers().size();
-                                    flight.setPassengers(flight.getPassengers() - ticket);
+                                    flight.setPassengerCount(flight.getPassengerCount() - ticket);
                                     flightController.saveFlight(flight);
                                     console.printLn("Booking is saved! Your booking ID: " +
                                             bookingController.getAllBookings().get(index).getId());
@@ -132,7 +131,7 @@ class Core {
                     int tickets = book.getPassengers().size();
                     int index = bookingController.getAllBookings().indexOf(book);
                     Flight flight = bookingController.getAllBookings().get(index).getFlight();
-                    flight.setPassengers(flight.getPassengers() + tickets);
+                    flight.setPassengerCount(flight.getPassengerCount() + tickets);
                     flightController.saveFlight(flight);
                     bookingController.cancelBooking(bookId);
                     console.printLn("");
