@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FlightController {
 
-    public FlightService fs = new FlightService();
+    private FlightService fs = new FlightService();
 
     public List<Flight> getAllFlights() { return fs.getAllFlights(); }
 

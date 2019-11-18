@@ -1,7 +1,7 @@
 package AviaService;
 
-public class ChoosingMenu {
-    public MenuPoints parse(String input) {
+class ChoosingMenu {
+    MenuPoints parse(String input) {
         if ("1".equals(input)) return MenuPoints.ONLINE_BOARD;
         else if ("2".equals(input)) return MenuPoints.FLIGHT_INFO;
         else if ("3".equals(input)) return MenuPoints.BOOKING;

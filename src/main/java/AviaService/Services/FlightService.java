@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class FlightService {
-    //DAO_Flight changed to Flight_DB
 
     private Flight_DB services = new Flight_DB();
 

@@ -75,12 +75,12 @@ public class FlightsTable implements Serializable {
                     new FileInputStream("src/main/java/AviaService/Datas/FlightsTable.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             flightsTable = (ArrayList<Flight>) in.readObject();
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (ClassNotFoundException | IOException ignored) {
         }
         return flightsTable;
     }
 
-    public List<Flight> deleteFlights() {
+    private List<Flight> deleteFlights() {
         List<Flight> dbf = new ArrayList<>();
         int i = 0;
         for (Flight f : loadDBF()) {
