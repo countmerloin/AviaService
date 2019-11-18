@@ -4,18 +4,15 @@ package AviaService;
 import AviaService.Controllers.BookingController;
 import AviaService.Controllers.FlightController;
 import AviaService.Controllers.MenuController;
-import AviaService.Entities.Booking;
-import AviaService.Entities.BookingTable;
-import AviaService.Entities.Flight;
-import AviaService.Entities.FlightsTable;
+import AviaService.Entities.*;
 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Core {
-
+class Core {
+Cities cities = new Cities();
     private final Console console;
     private final Menu menu;
     private final FlightsTable flightsTable;
@@ -25,7 +22,7 @@ public class Core {
     private final FlightController flightController;
     private final MenuController menuController;
 
-    public Core(Console console, FlightsTable flightsTable, BookingTable bookingTable) {
+    Core(Console console, FlightsTable flightsTable, BookingTable bookingTable) {
         this.console = console;
         this.flightsTable = flightsTable;
         this.bookingTable = bookingTable;
@@ -36,7 +33,7 @@ public class Core {
         this.menuController = new MenuController();
     }
 
-    public void run() {
+    void run() {
         if (flightsTable.isExisted()) {
             flightsTable.loadDBF();
         } else flightsTable.createDBF();
@@ -49,64 +46,78 @@ public class Core {
         boolean cont = true;
         console.printLn(menu.show());
         while (cont) {
-
             String line = console.readLn();
             MenuPoints user_input = parser.parse(line);
             switch (user_input) {
                 case ONLINE_BOARD:
                     flightController.getFlights24();
+                    console.printLn("");
+                    console.printLn(menu.show());
                     menuController.help();
                     break;
                 case FLIGHT_INFO: {
-                    System.out.println("Enter flight ID: ");
+                    console.printLn("Enter flight ID: ");
                     String flightID = console.readLn();
                     System.out.println(flightController.getFlightById(flightID));
+                    console.printLn("");
+                    console.printLn(menu.show());
                     menuController.help();
                 }
                 break;
                 case BOOKING: {
-                    System.out.println("Please, enter destination:");
+                    console.printLn("Please, enter destination (capital of European country):");
                     String dest = console.readLn();
-                    System.out.println("Please, enter date in the following format yyyy-MM-dd:");
+
+                    console.printLn("Please, enter date in the following format yyyy-MM-dd:");
                     LocalDate dateInput = LocalDate.parse(console.readLn());
                     LocalDateTime date = dateInput.atStartOfDay();
 
-                    System.out.println("Please, enter passenger count:");
+                    console.printLn("Please, enter passenger count:");
                     int passenger = Integer.parseInt(console.readLn());
 
                     List<Flight> flights = flightController.getFlightByInfo(dest, date, passenger);
                     for (Flight f : flights) {
                         System.out.println(f);
                     }
-                    System.out.println("Choose action: 1. Make a book");
-                    System.out.println("               2. Return to menu");
-                    int choose = Integer.parseInt(console.readLn());
-                    boolean flag = true;
-                    while (flag) {
-                        switch (choose) {
-                            case 1: {
-                                bookingController.addBooking();
-                                int index = bookingController.getAllBookings().size() - 1;
+                    if (flightController.getFlightByInfo(dest, date, passenger).size() == 0) {
+                        console.printLn(menu.show());
+                        menuController.help();
+                    } else {
+                        console.printLn("Choose action: 1. Make a book");
+                        console.printLn("               2. Return to menu");
+                        int choose = Integer.parseInt(console.readLn());
+                        boolean flag = true;
+                        while (flag) {
+                            switch (choose) {
+                                case 1: {
+                                    bookingController.addBooking();
+                                    int index = bookingController.getAllBookings().size() - 1;
 
-                                Flight flight = bookingController.getAllBookings().get(index).getFlight();
-                                int ticket = bookingController.getAllBookings().get(index).getPassengers().size();
-                                flight.setPassengers(flight.getPassengers() - ticket);
-                                flightController.saveFlight(flight);
-                                System.out.println("Booking is saved!");
-                                menuController.help();
-                                flag=false;
+                                    Flight flight = bookingController.getAllBookings().get(index).getFlight();
+                                    int ticket = bookingController.getAllBookings().get(index).getPassengers().size();
+                                    flight.setPassengers(flight.getPassengers() - ticket);
+                                    flightController.saveFlight(flight);
+                                    console.printLn("Booking is saved! Your booking ID: " +
+                                            bookingController.getAllBookings().get(index).getId());
+                                    console.printLn("");
+                                    console.printLn(menu.show());
+                                    menuController.help();
+                                    flag = false;
+                                }
+                                break;
+                                default:
+                                    console.printLn("");
+                                    console.printLn(menu.show());
+                                    menuController.help();
+                                    flag = false;
                             }
-                            break;
-                            default:
-                                menuController.help();
-                                flag=false;
                         }
                     }
                 }
                 break;
 
                 case CANCEL_BOOKING: {
-                    System.out.println("Please enter Booking ID:");
+                    console.printLn("Please enter Booking ID:");
                     String bookId = console.readLn();
                     Booking book = bookingController.findById(bookId);
                     int tickets = book.getPassengers().size();
@@ -115,17 +126,21 @@ public class Core {
                     flight.setPassengers(flight.getPassengers() + tickets);
                     flightController.saveFlight(flight);
                     bookingController.cancelBooking(bookId);
+                    console.printLn("");
+                    console.printLn(menu.show());
                     menuController.help();
                 }
                 break;
 
                 case MY_BOOKINGS: {
-                    System.out.println("Enter your name:");
+                    console.printLn("Enter your name:");
                     String name = console.readLn();
-                    System.out.println("Enter your surname:");
+                    console.printLn("Enter your surname:");
                     String surname = console.readLn();
 
                     bookingController.myBookings(name, surname);
+                    console.printLn("");
+                    console.printLn(menu.show());
                     menuController.help();
                 }
                 break;
@@ -137,7 +152,9 @@ public class Core {
                 break;
                 case REPEAT:
                 default:
-                    console.printLn(menuController.help());
+                    console.printLn("");
+                    console.printLn(menu.show());
+                    menuController.help();
                     break;
             }
         }

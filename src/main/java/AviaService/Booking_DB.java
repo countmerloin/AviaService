@@ -57,10 +57,13 @@ public class Booking_DB implements DAO_Booking {
 
     @Override
     public List<Booking> cancelBooking(String bookId) {
-        for (int i =0; i< bookDB.size(); i++) {
+        for (int i = 0; i < bookDB.size(); i++) {
             Booking b = bookDB.get(i);
             if (b.getId().equalsIgnoreCase(bookId)) {
                 bookDB.remove(b);
+                System.out.println("Your booking has been cancelled!");
+            } else {
+                System.out.println("Booking not found.");
             }
         }
         return bookDB;

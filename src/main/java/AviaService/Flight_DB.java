@@ -41,12 +41,11 @@ public class Flight_DB implements DAO_Flight {
         int i = 0;
         for (Flight f : dbf) {
             if (search.hashCode() == f.hashCode() && search.equals(f) && passenger <= f.getPassengers()) {
-                System.out.println(f);
                 searchRes.add(f);
                 i++;
             }
         }
-        if (i == 0) System.out.println("Flight not found. Please, search again.");
+        if (i == 0) {System.out.println("Flight not found. Please, search again."); };
         return searchRes;
     }
 
