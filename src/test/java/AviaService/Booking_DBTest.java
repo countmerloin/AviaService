@@ -10,61 +10,48 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class Booking_DBTest {
+    private Booking_DB bd;
     private BookingTable bt;
     private List<Booking> bookDB;
 
 
     @Before
     public void before() {
+        bd  = new Booking_DB();
         bt = new BookingTable();
         bookDB = bt.loadBookDB();
+        bookDB.add(null);
     }
 
     @Test
     public void getAllBookings() {
+        assertNull(bookDB.get(0));
     }
 
     @Test
     public void myBookings() {
-        List<Booking> newList = bookDB;
-        Booking booking = new Booking("Anar", "Ismayilov");
-        int i = 0;
-        for (Booking b : newList
-        ) {
-            for (String s : b.getPassengers()
-            ) {
-                s = s.replaceAll("\\s+", "");
-                if (s.equalsIgnoreCase(booking.getPassenger())) {
-                    System.out.println(b);
-                    i++;
-                }
-            }
 
-//            if (i == 0) {
-//                System.out.println("Bookings for this person not found.");
-//            }
-        } System.out.println(i);
    }
 
     @Test
     public void addBooking() {
+        Booking booking = new Booking("Anar", "Ismayilov");
+        bookDB.add(booking);
+        assertNotNull(bookDB.get(1));
     }
 
     @Test
     public void findById() {
-//        for (Booking b : bookDB) {
-//            if (b.getId().equalsIgnoreCase(bookId)) {
-//                System.out.println(b);
-//            }
+
     }
 
 
     @Test
     public void cancelBooking() {
-        String s1= "AA A";
-        String s2 = "aa a";
-        if (s1.equalsIgnoreCase(s2)){
-            System.out.println("true");
-        }
+        Booking booking = new Booking("Tahir", "Dovtalabi");
+        bookDB.add(booking);
+        String id = bookDB.get(1).getId();
+        bd.cancelBooking(id);
+        assertEquals(bookDB.size(), 2);
     }
 }

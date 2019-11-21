@@ -80,7 +80,7 @@ public class FlightsTable implements Serializable {
         return flightsTable;
     }
 
-    private List<Flight> deleteFlights() {
+    public List<Flight> deleteFlights() {
         List<Flight> dbf = new ArrayList<>();
         int i = 0;
         for (Flight f : loadDBF()) {
